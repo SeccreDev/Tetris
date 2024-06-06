@@ -1,8 +1,6 @@
 #pragma once
 #include <vector>
 #include <raylib.h>
-#include <iostream>
-
 
 class Board
 {
@@ -10,16 +8,13 @@ class Board
 		int rows;
 		int columns;
 		int cellSize;
-		int board[20][10];
 		std::vector <Color> colors;
-		std::vector <Color> GetCellColors();
 
 	public:
+		int board[20][10];
 		Board();
 		void setBoard();
 		void showBoard() const;
 		void draw();
-
-
 };
 
