@@ -14,5 +14,10 @@ void Block::draw()
 	{
 		DrawRectangle(item.column * cellSize + 1, item.row * cellSize + 1, cellSize - 1, cellSize - 1, colors[id]);
 	}
+}
 
+void Block::Move(int rows, int columns)
+{
+    rowOffset += rows;
+    columnOffset += columns;
 }
