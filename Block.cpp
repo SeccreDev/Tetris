@@ -16,8 +16,17 @@ void Block::draw()
 	}
 }
 
-void Block::Move(int rows, int columns)
+void Block::move(int rows, int columns)
 {
     rowOffset += rows;
     columnOffset += columns;
+}
+
+void Block::rotate()
+{
+    rotationState++;
+    if (rotationState == (int)cells.size())
+    {
+        rotationState = 0;
+    }
 }

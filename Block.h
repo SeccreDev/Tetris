@@ -14,7 +14,8 @@ class Block
 	public:
 		Block();
 		void draw();
-		void Move(int rows, int columns);
+		void move(int rows, int columns);
+		void rotate();
 		int id;
 		std::map<int, std::vector<Position>> cells;
 
