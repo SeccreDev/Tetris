@@ -1,7 +1,5 @@
 #include <raylib.h>
-#include "Board.h"
-#include "Blocks.cpp"
-#include <iostream>
+#include "Game.h"
 
 
 int main()
@@ -12,16 +10,12 @@ int main()
     // Set FPS
     SetTargetFPS(30);
 
-    // Board
-    Board board = Board();
-    Lblock block = Lblock();
-
+    Game game = Game();
     while (WindowShouldClose() == false)
     {
         BeginDrawing();
         ClearBackground(RED);
-        board.draw();
-        block.draw();
+        game.draw();
         EndDrawing();
     }
     CloseWindow();
