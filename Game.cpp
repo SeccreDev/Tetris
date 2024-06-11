@@ -7,6 +7,21 @@ Game::Game()
 	currentBlock = getRandomBlock();
 	nextBlock = getRandomBlock();
 	gameOver = false;
+	score = 0;
+
+	InitAudioDevice();
+	music = LoadMusicStream("Sounds/music.mp3");
+	PlayMusicStream(music);
+	rotateSound = LoadSound("Sounds/rotate.mp3");
+	clearSound = LoadSound("Sounds/clear.mp3");
+}
+
+Game::~Game()
+{
+	UnloadSound(rotateSound);
+	UnloadSound(clearSound);
+	UnloadMusicStream(music);
+	CloseAudioDevice();
 }
 
 Block Game::getRandomBlock()
@@ -30,7 +45,19 @@ std::vector<Block> Game::getAllBlocks()
 void Game::draw()
 {
 	board.draw();
-	currentBlock.draw();
+	currentBlock.draw(11, 11);
+	switch (nextBlock.id)
+	{
+		case 3:
+			nextBlock.draw(255, 290);
+			break;
+		case 4:
+			nextBlock.draw(255, 280);
+			break;
+		default:
+			nextBlock.draw(270, 270);
+			break;
+	}
 }
 
 void Game::handleInput()
@@ -54,6 +81,7 @@ void Game::handleInput()
 			break;
 		case KEY_DOWN:
 			moveBlockDown();
+			updateScore(0, 1);
 			break;
 	}
 }
@@ -104,6 +132,10 @@ void Game::rotateBlock()
 		{
 			currentBlock.undoRotation();
 		}
+		else
+		{
+			PlaySound(rotateSound);
+		}
 	}
 }
 
@@ -134,7 +166,12 @@ void Game::lockBlock()
 	}
 
 	nextBlock = getRandomBlock();
-	board.clearFullRows();
+	int rowsCleared = board.clearFullRows();
+	if (rowsCleared > 0)
+	{
+		PlaySound(clearSound);
+		updateScore(rowsCleared, 0);
+	}
 }
 
 bool Game::blockFits()
@@ -156,4 +193,28 @@ void Game::reset()
 	blocks = getAllBlocks();
 	currentBlock = getRandomBlock();
 	nextBlock = getRandomBlock();
+	score = 0;
+}
+
+void Game::updateScore(int linesCleared, int moveDownPoints)
+{
+	switch (linesCleared)
+	{
+		case 1:
+			score += 100;
+			break;
+		case 2:
+			score += 300;
+			break;
+		case 3:
+			score += 500;
+			break;
+		case 4:
+			score += 1000;
+			break;
+		default:
+			break;
+	}
+
+	score += moveDownPoints;
 }

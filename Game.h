@@ -12,21 +12,25 @@ class Game
 		void lockBlock();
 		bool blockFits();
 		void reset();
-
+		void updateScore(int linesCleared, int moveDownPoints);
+		Block getRandomBlock();
+		std::vector<Block> getAllBlocks();
+		void moveBlockLeft();
+		void moveBlockRight();
+		Board board;
+		Sound rotateSound;
+		Sound clearSound;
 
 	public:
 		bool gameOver;
+		int score;
 		Game();
-		Block getRandomBlock();
-		std::vector<Block> getAllBlocks();
+		~Game();
 		void draw();
-		Board board;
-
 		void handleInput();
-		void moveBlockLeft();
-		void moveBlockRight();
 		void moveBlockDown();
 		void rotateBlock();
+		Music music;
 
 
 };
