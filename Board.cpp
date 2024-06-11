@@ -47,3 +47,70 @@ void Board::draw()
 	}
 }
 
+bool Board::isCellOutside(int row, int column)
+{
+	if (row >= 0 && row < rows && column >= 0 && column < columns)
+	{
+		return false;
+	}
+	return true;
+}
+
+bool Board::isCellEmpty(int row, int column)
+{
+	if (board[row][column] == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+int Board::clearFullRows()
+{
+	int completed = 0;
+	for (int row = rows - 1; row >= 0; row--)
+	{
+		if (isRowFull(row))
+		{
+			clearRow(row);
+			completed++;
+		}
+		else if (completed > 0)
+		{
+			moveRowDown(row, completed);
+		}
+	}
+	return completed;
+}
+
+bool Board::isRowFull(int row)
+{
+	for (int column = 0; column < columns; column++)
+	{
+		if (board[row][column] == 0)
+		{
+			return false;
+		}
+	}
+		return true;
+}
+
+void Board::clearRow(int row)
+{
+	for (int column = 0; column < columns; column++)
+	{
+		board[row][column] = 0;
+	}
+}
+
+void Board::moveRowDown(int row, int numRows)
+{
+	for (int column = 0; column < columns; column++)
+	{
+		board[row + numRows][column] = board[row][column];
+		board[row][column] = 0;
+	}
+}
