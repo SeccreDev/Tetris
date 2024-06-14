@@ -18,12 +18,18 @@ int main()
     while (WindowShouldClose() == false)
     {
         UpdateMusicStream(game.music);
+
+        // Handle inputs
         game.handleInput();
-        if (eventTriggered(0.6))
+
+        // Speed of the game
+
+        if (eventTriggered(1.0))
         {
             game.moveBlockDown();
         }
 
+        //
         BeginDrawing();
         ClearBackground(GRAY);
 
@@ -39,7 +45,11 @@ int main()
         DrawTextEx(font, "Next", { 365, 175 }, 38, 2, WHITE);
         DrawRectangleRounded({ 320, 215, 170, 180 }, 0.3, 6, BLACK);
 
-        DrawTextEx(font, "Level", { 340, 460 }, 32, 2, WHITE);
+        // Level
+        DrawTextEx(font, "Level:", { 340, 460 }, 32, 2, WHITE);
+        char levelText[10];
+        sprintf_s(levelText, "%d", game.level);
+        DrawTextEx(font, levelText, {450, 458 }, 38, 2, WHITE);
 
         if (game.gameOver)
         {

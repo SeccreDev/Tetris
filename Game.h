@@ -13,6 +13,7 @@ class Game
 		bool blockFits();
 		void reset();
 		void updateScore(int linesCleared, int moveDownPoints);
+		void updateLevel(int linesCleared);
 		Block getRandomBlock();
 		std::vector<Block> getAllBlocks();
 		void moveBlockLeft();
@@ -24,6 +25,8 @@ class Game
 	public:
 		bool gameOver;
 		int score;
+		int level;
+		int totalLinesCleared;
 		Game();
 		~Game();
 		void draw();

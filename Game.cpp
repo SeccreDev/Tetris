@@ -8,6 +8,8 @@ Game::Game()
 	nextBlock = getRandomBlock();
 	gameOver = false;
 	score = 0;
+	level = 1;
+	totalLinesCleared = 0;
 
 	InitAudioDevice();
 	music = LoadMusicStream("Sounds/music.mp3");
@@ -171,6 +173,8 @@ void Game::lockBlock()
 	{
 		PlaySound(clearSound);
 		updateScore(rowsCleared, 0);
+		totalLinesCleared += rowsCleared;
+		updateLevel(totalLinesCleared);
 	}
 }
 
@@ -217,4 +221,44 @@ void Game::updateScore(int linesCleared, int moveDownPoints)
 	}
 
 	score += moveDownPoints;
+}
+
+void Game::updateLevel(int linesCleared)
+{
+	if (linesCleared >= 90)
+	{
+		level = 10;
+	}
+	else if (linesCleared >= 80)
+	{
+		level = 9;
+	}
+	else if (linesCleared >= 70)
+	{
+		level = 8;
+	}
+	else if (linesCleared >= 60)
+	{
+		level = 7;
+	}
+	else if (linesCleared >= 50)
+	{
+		level = 6;
+	}
+	else if (linesCleared >= 40)
+	{
+		level = 5;
+	}
+	else if (linesCleared >= 30)
+	{
+		level = 4;
+	}
+	else if (linesCleared >= 20)
+	{
+		level = 3;
+	}
+	else if (linesCleared >= 10)
+	{
+		level = 2;
+	}
 }
