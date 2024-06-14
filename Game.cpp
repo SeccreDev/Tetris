@@ -1,7 +1,9 @@
 #include "Game.h"
+#include<time.h>
 
 Game::Game()
 {
+	srand(time(NULL));
 	board = Board();
 	blocks = getAllBlocks();
 	currentBlock = getRandomBlock();
@@ -10,6 +12,7 @@ Game::Game()
 	score = 0;
 	level = 1;
 	totalLinesCleared = 0;
+	speed = 1.0;
 
 	InitAudioDevice();
 	music = LoadMusicStream("Sounds/music.mp3");
@@ -141,6 +144,7 @@ void Game::rotateBlock()
 	}
 }
 
+
 bool Game::isBlockOutside()
 {
 	std::vector <Position> tiles = currentBlock.getCellPositions();
@@ -172,8 +176,8 @@ void Game::lockBlock()
 	if (rowsCleared > 0)
 	{
 		PlaySound(clearSound);
-		updateScore(rowsCleared, 0);
 		totalLinesCleared += rowsCleared;
+		updateScore(rowsCleared, 0);
 		updateLevel(totalLinesCleared);
 	}
 }
@@ -198,6 +202,8 @@ void Game::reset()
 	currentBlock = getRandomBlock();
 	nextBlock = getRandomBlock();
 	score = 0;
+	level = 1;
+	speed = 1.0;
 }
 
 void Game::updateScore(int linesCleared, int moveDownPoints)
@@ -228,37 +234,46 @@ void Game::updateLevel(int linesCleared)
 	if (linesCleared >= 90)
 	{
 		level = 10;
+		speed = 0.10;
 	}
 	else if (linesCleared >= 80)
 	{
 		level = 9;
+		speed = 0.20;
 	}
 	else if (linesCleared >= 70)
 	{
 		level = 8;
+		speed = 0.30;
 	}
 	else if (linesCleared >= 60)
 	{
 		level = 7;
+		speed = 0.40;
 	}
 	else if (linesCleared >= 50)
 	{
 		level = 6;
+		speed = 0.50;
 	}
 	else if (linesCleared >= 40)
 	{
 		level = 5;
+		speed = 0.60;
 	}
 	else if (linesCleared >= 30)
 	{
 		level = 4;
+		speed = 0.70;
 	}
 	else if (linesCleared >= 20)
 	{
 		level = 3;
+		speed = 0.80;
 	}
 	else if (linesCleared >= 10)
 	{
 		level = 2;
+		speed = 0.90;
 	}
 }

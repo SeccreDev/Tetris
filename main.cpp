@@ -15,6 +15,7 @@ int main()
 
     Font font = LoadFontEx("Font/monogram.ttf", 64, 0, 0);
     Game game = Game();
+ 
     while (WindowShouldClose() == false)
     {
         UpdateMusicStream(game.music);
@@ -24,7 +25,7 @@ int main()
 
         // Speed of the game
 
-        if (eventTriggered(1.0))
+        if (eventTriggered(game.speed))
         {
             game.moveBlockDown();
         }

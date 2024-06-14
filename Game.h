@@ -27,12 +27,14 @@ class Game
 		int score;
 		int level;
 		int totalLinesCleared;
+		double speed;
 		Game();
 		~Game();
 		void draw();
 		void handleInput();
 		void moveBlockDown();
 		void rotateBlock();
+		int getSpeed();
 		Music music;
 
 
