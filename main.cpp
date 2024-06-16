@@ -3,6 +3,7 @@
 #include <iostream>
 
 double lastUpdateTime = 0;
+bool paused = false;
 bool eventTriggered(double interval);
 
 int main()
@@ -18,16 +19,27 @@ int main()
  
     while (WindowShouldClose() == false)
     {
-        UpdateMusicStream(game.music);
-
-        // Handle inputs
-        game.handleInput();
-
-        // Speed of the game
-
-        if (eventTriggered(game.speed))
+        // Pause
+        if (IsKeyPressed(KEY_ENTER))
         {
-            game.moveBlockDown();
+            paused = !paused;
+        }
+
+        // Checks to pause
+        if (!paused)
+        {
+            // Handles music
+            UpdateMusicStream(game.music);
+
+            // Handle inputs
+            game.handleInput();
+
+            // Speed of the game
+
+            if (eventTriggered(game.speed))
+            {
+                game.moveBlockDown();
+            }
         }
 
         //
@@ -58,6 +70,13 @@ int main()
         }
 
         game.draw();
+
+        // Paused
+        if (paused)
+        {
+            DrawTextEx(font, "Pause", { 90, 275 }, 62, 2, RED);
+        }
+
         EndDrawing();
     }
     CloseWindow();
