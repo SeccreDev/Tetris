@@ -88,13 +88,13 @@ void Game::handleInput()
 			moveBlockDown();
 			updateScore(0, 1);
 			break;
-		case KEY_SPACE:
+		/*case KEY_SPACE:
 			for (int i = 0; i < 5; i++)
 			{
 				moveBlockDown();
 			}
 			updateScore(0, 20);
-			break;
+			break;*/
 	}
 }
 
