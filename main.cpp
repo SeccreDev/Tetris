@@ -19,7 +19,7 @@ int main()
  
     while (WindowShouldClose() == false)
     {
-        // Pause
+        // Pause by pressing enter
         if (IsKeyPressed(KEY_ENTER))
         {
             paused = !paused;
